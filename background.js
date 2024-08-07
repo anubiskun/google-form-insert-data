@@ -50,6 +50,12 @@
             if (await getStorage('extAnubisCount') === undefined) {
                 await setStorage('extAnubisCount', 0);
             }
+            if (await getStorage('extAnubisIsReload') === undefined) {
+                await setStorage('extAnubisIsReload', false);
+            }
+            if (await getStorage('extAnubisUrl') === undefined) {
+                await setStorage('extAnubisUrl', 'https://docs.google.com/forms/d/e/1FAIpQLSeheL7PVrhrZFIDD98Z1Z7gYojrsllyz4qDNW19zVlBVSIwzw/viewform');
+            }
             if (await getStorage('extAnubisStatusBtn') === undefined) {
                 await setStorage('extAnubisStatusBtn', {
                     btnStart: true,

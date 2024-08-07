@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }, 100);
     function updateBtn() {        
         Object.keys(statusBtn).forEach((v) => {            
-            document.getElementById(v).style.display = (statusBtn[v]) ? 'block' : 'none';
+            document.getElementById(v).style.display = (statusBtn[v]) ? 'unset' : 'none';
         })
     }
     updateBtn()

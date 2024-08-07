@@ -1,6 +1,6 @@
-test,test2,test3,test4,rating
-Y,gak,test,paksa,5
-Y,gak,test2,paksa,5
-N,mau,test3,paksa,5
-N,mau,test4,paksa,5
-N,mau,test5,paksa,5
+test;test2;test3;test4;rating
+Y;gak;test;paksa;5
+Y;gak;test2;paksa;5
+N;mau;test3;paksa;5
+N;mau;test4;paksa;5
+N;mau;test5;paksa;5

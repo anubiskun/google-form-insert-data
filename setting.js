@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", async function () {
+    let api;
+    let extAnubisUrl;
+
+    if (isChrome()) api = chrome;
+    else if (isFirefox()) api = browser;
+
+    function isChrome() {
+        return typeof chrome !== "undefined" && typeof chrome.runtime !== "undefined";
+    }
+
+    function isFirefox() {
+        return (
+            typeof browser !== "undefined" && typeof browser.runtime !== "undefined"
+        );
+    }
+
     async function setStorage(key, value) {
         return new Promise((resolve, reject) => {
             api.storage.local.set({ [key]: value }, function() {
@@ -10,8 +26,21 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
         });
     }
+    async function getStorage(key) {
+        return new Promise((resolve, reject) => {
+            api.storage.local.get(key, function(result) {
+                if (api.runtime.lastError) {
+                    reject(api.runtime.lastError);
+                } else {
+                    resolve(result[key]);
+                }
+            });
+        });
+    }
+
     var btnClose = document.getElementById("btnClose");
     var btnSave = document.getElementById('btnSave');
+    var inptUrl = document.getElementById('url');
 
     btnClose.addEventListener("click", window.close);
 
@@ -26,25 +55,30 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const jD = xD(dT);
                 
                 await setStorage('extAnubis', jD).then((result) => {
-                    if (result) {
-                        alert('berhasil update database ngab!');
-                    }
+                    alert('berhasil update database ngab!');
                 });
 
-                window.close();
             };
-
+            
             reader.readAsText(file);
-        } else {
-            alert("Upload dulu file csv nya ngab!");
+        } else if (inptUrl.value !== extAnubisUrl) {
+            await setStorage('extAnubisUrl', inptUrl.value);
         }
+
+        window.close();
+
     });
+
+    await getStorage('extAnubisUrl').then((result) => {
+        inptUrl.value = (result) ? result : '';
+        extAnubisUrl = result;
+    })
 
     function xD(data) {
         const rows = data.trim().split('\n');
-        const headers = rows[0].split(',');
+        const headers = rows[0].split(';');
         return rows.slice(1).map(row => {
-            const values = row.split(',');
+            const values = row.split(';');
             let jsonObject = {};
             headers.forEach((header, index) => {
                 jsonObject[header.trim()] = values[index].trim();
