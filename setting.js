@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     btnSave.addEventListener("click", async function () {
         var fileCsv = document.getElementById("fileCsv");
+        if (inptUrl.value !== extAnubisUrl) {
+            await setStorage('extAnubisUrl', inptUrl.value);
+        }
         if (fileCsv.files.length > 0) {
             const file = fileCsv.files[0];
             const reader = new FileReader();
@@ -56,16 +59,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 
                 await setStorage('extAnubis', jD).then((result) => {
                     alert('berhasil update database ngab!');
+                    fileCsv.value = null
                 });
-
+                
             };
             
             reader.readAsText(file);
-        } else if (inptUrl.value !== extAnubisUrl) {
-            await setStorage('extAnubisUrl', inptUrl.value);
         }
-
-        window.close();
 
     });
 

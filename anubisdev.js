@@ -155,12 +155,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         $root.forEach(async function(el,i) {
             const param = JSON.parse(el.querySelector('div').dataset.params.replace('%.@.', '['))[0];
             switch(param[3]) {
-                case 0:
-                case 1: {
+                case 0: {
                     const a = fabq(extAnubisCount, param[1]);
                     var event = new Event('input', { bubbles: true });
                     el.querySelector('input').value = a;
                     el.querySelector('input').dispatchEvent(event);
+                }
+                break;
+                case 1: {
+                    const a = fabq(extAnubisCount, param[1]);
+                    var event = new Event('input', { bubbles: true });
+                    el.querySelector('textarea').value = a;
+                    el.querySelector('textarea').dispatchEvent(event);
                 }
                 break;
                 case 2: {
