@@ -1,0 +1,38 @@
+{
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Click Me!"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": ["anubisdev.js"],
+      "matches": ["https://docs.google.com/*"],
+      "run_at": "document_start"
+    }
+  ],
+  "description": "Insert Mass Data to Google Form",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "manifest_version": 3,
+  "name": "Insert Mass Data to Google Form",
+  "author": "anubiskun",
+  "version": "1.0",
+  "homepage_url": "https://github.com/anubiskun",
+  "permissions": ["tabs", "storage"],
+  "web_accessible_resources": [{
+    "resources": ["anubisdev.js","background.js"],
+    "matches": ["<all_urls>"]
+  }]
+}
